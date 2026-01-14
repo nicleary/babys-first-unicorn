@@ -1,0 +1,36 @@
+kind: ZarfPackageConfig 
+metadata:
+  name: podinfo
+  version: 0.0.1 # Definitely not reaady for primetime yet
+  description: |        
+    "Pod info but unicornized"
+
+components:
+  - name: "podinfo"
+    description: |
+      "Deploys the pod info container"
+    required: true
+    charts:
+      - name: podinfo
+        url: "https://stefanprodan.github.io/podinfo"
+        version: "6.9.4"
+        namespace: "podinfo"
+        valuesFiles:
+          - "values/podinfo.yaml"
+    images:
+      - curlimages/curl:7.69.0
+      - ghcr.io/stefanprodan/podinfo:6.9.4
+      - giantswarm/tiny-tools
+      - stefanprodan/grpc_health_probe:v0.3.0
+      # Cosign artifacts for images - podinfo
+      - ghcr.io/stefanprodan/podinfo:sha256-b1e974022d6603c8ceea4a05c6ff9d9f4e6bf6a6590fb740251811283458c4ea.sig
+    manifests:
+      - name: connect-services
+        namespace: podinfo
+        files:
+          - ./manifests/connect-services.yaml
+variables:
+  - name: "PODINFO_REPLICA_COUNT"
+    description: "The number of replicas to deploy"
+    default: "1"
+    prompt: true

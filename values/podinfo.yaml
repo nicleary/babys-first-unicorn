@@ -1,0 +1,5 @@
+replicaCount: ###PODINFO_REPLICA_COUNT###
+loglevel: info
+image:
+  repository: "ghcr.io/stefanprodan/podinfo"
+  tag: "6.9.4"
