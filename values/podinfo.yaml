@@ -1,4 +1,4 @@
-replicaCount: ###PODINFO_REPLICA_COUNT###
+replicaCount: ###ZARF_VAR_PODINFO_REPLICA_COUNT###
 loglevel: info
 image:
   repository: "ghcr.io/stefanprodan/podinfo"
