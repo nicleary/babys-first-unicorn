@@ -29,6 +29,19 @@ components:
         namespace: podinfo
         files:
           - ./manifests/connect-services.yaml
+      - name: uds-integration
+        namespace: podinfo
+        files:
+          - ./manifests/uds-integration.yaml
+    actions:
+      onDeploy:
+        after:
+          - wait:
+              cluster:
+                kind: deployment
+                name: podinfo
+                namespace: podinfo
+                condition: available
 variables:
   - name: "PODINFO_REPLICA_COUNT"
     description: "The number of replicas to deploy"
